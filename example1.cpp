@@ -99,8 +99,7 @@ void init(){
     
     
     //---- Initialize texture objects
-    glGenTextures( 6, textures );
-    
+    glGenTextures( 2, textures );
     glActiveTexture( GL_TEXTURE0 );
     
     glBindTexture( GL_TEXTURE_2D, textures[0] );
@@ -125,6 +124,7 @@ void init(){
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
     
+    
     unsigned char* pic2 = NULL;
     int w2,h2;
     loadBMP_custom(&pic2, &w2, &h2, "griptape.bmp");
@@ -137,6 +137,7 @@ void init(){
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
 
+    
     unsigned char* pic3 = NULL;
     int w3,h3;
     loadBMP_custom(&pic3, &w3, &h3, "Concrete.bmp");
@@ -148,6 +149,7 @@ void init(){
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+    
     
     unsigned char* pic4 = NULL;
     int w4,h4;
@@ -161,6 +163,7 @@ void init(){
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
     
+    
     unsigned char* pic5 = NULL;
     int w5,h5;
     loadBMP_custom(&pic5, &w5, &h5, "Metal.bmp");
@@ -172,6 +175,41 @@ void init(){
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+    
+    
+    
+    
+    int w6,h6;
+    
+    unsigned char* negx_s = NULL;
+    loadBMP_custom(&negx_s, &w6, &h6, "negx_s.bmp");
+    unsigned char* negy_s = NULL;
+    loadBMP_custom(&negy_s, &w6, &h6, "negy_s.bmp");
+    unsigned char* negz_s = NULL;
+    loadBMP_custom(&negz_s, &w6, &h6, "negz_s.bmp");
+    unsigned char* posx_s = NULL;
+    loadBMP_custom(&posx_s, &w6, &h6, "posx_s.bmp");
+    unsigned char* posy_s = NULL;
+    loadBMP_custom(&posy_s, &w6, &h6, "posy_s.bmp");
+    unsigned char* posz_s = NULL;
+    loadBMP_custom(&posz_s, &w6, &h6, "posz_s.bmp");
+    
+    glActiveTexture( GL_TEXTURE1 );
+    glBindTexture( GL_TEXTURE_CUBE_MAP, textures[6] );
+    glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGB, w6, h6, 0, GL_BGRA, GL_UNSIGNED_BYTE, posx_s);
+    glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGB, w6, h6, 0, GL_BGRA, GL_UNSIGNED_BYTE, posy_s);
+    glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGB, w6, h6, 0, GL_BGRA, GL_UNSIGNED_BYTE, posz_s);
+    glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGB, w6, h6, 0, GL_BGRA, GL_UNSIGNED_BYTE, negx_s);
+    glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGB, w6, h6, 0, GL_BGRA, GL_UNSIGNED_BYTE, negy_s);
+    glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGB, w6, h6, 0, GL_BGRA, GL_UNSIGNED_BYTE, negz_s);
+    
+    glTexParameterf( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_REPEAT );
+    glTexParameterf( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_REPEAT );
+    glTexParameterf( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
+    glTexParameterf( GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
+    
+    
+    
     
     //----set offset variables
     
@@ -249,7 +287,9 @@ void init(){
     
     // Set the value of the fragment shader texture sampler variable (myTextureSampler) to GL_TEXTURE0
     glUniform1i( glGetUniformLocation(program, "myTextureSampler"), 0 );
-
+    glUniform1i( glGetUniformLocation(program, "myCubeSampler"), 1 );
+    
+    glUniform1i( glGetUniformLocation(program, "cube_map_on"), false );
     
     
     //---------------------------------------------------------------------
@@ -304,6 +344,7 @@ float initialThetaX, initialThetaY, initialThetaZ, thetaX, thetaY, thetaZ = 0.0;
 float yOffset = 0.16, zOffset = 0.225;
 
 
+
 void display( void ){
     
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
@@ -312,7 +353,6 @@ void display( void ){
     //---- lights
     
     SetLight( vec4( 0.0, 3.55, 0.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), vec4(0.8, 0.8, 0.8, 1.0), vec4(0.2, 0.2, 0.2, 1.0));
-    
     
     
     
@@ -902,6 +942,24 @@ void display( void ){
 
 
     
+    //---- Sky Cube
+    
+    glBindTexture( GL_TEXTURE_2D, textures[6] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial( vec4(0.4, 0.4, 0.4, 1.0), vec4(0.95, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), true );
+    
+    mat4 sky = Translate( 0.0, 0.0, 0.0 ) * Scale(15.0, 15.0, 15.0);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, sky );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
+    
+    
+    
     
     
     glutSwapBuffers();
@@ -1284,7 +1342,7 @@ void idle( void ){
     {
       if (!doPop)
       {
-          thetaZ += 36;
+          thetaZ += 20;
           thetaZ = fmod(thetaZ,360);
           if(thetaZ == 0)
               doKickflip = false;
