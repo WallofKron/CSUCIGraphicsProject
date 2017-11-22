@@ -6,6 +6,8 @@ in  vec3 fN;
 in  vec3 fL;
 in  vec3 fE;
 in  vec2 tex_coord;
+in  vec3 rv;
+
 
 //---- outs
 out vec4 FragColor;
@@ -18,8 +20,11 @@ uniform bool light_out;
 uniform vec4 LightPosition;
 uniform mat4 view;
 uniform bool texture_on;
+uniform bool cube_map_on;
 
 uniform sampler2D myTextureSampler;
+uniform samplerCube myCubeSampler;
+
 
 vec4 kA, kD, kS;
 
@@ -51,7 +56,7 @@ void main()
         kD = kd;
         kS = ks;
     }
-    
+
     // Compute terms in the illumination equation
     vec4 ambient = AmbientLight * kA * texel;
     
