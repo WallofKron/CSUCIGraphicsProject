@@ -340,6 +340,8 @@ mat4 proj_matrix;
 mat4 view_matrix;
 mat4 wheelOneTransform, wheelTwoTransform, wheelThreeTransform, wheelFourTransform, frontAxleTransform, rearAxleTransform, frontTruckTransform, rearTruckTransform, boardCenterTransform, rearBoardEdgeTransform, frontBoardEdgeTransform;
 float r = 5.0;
+float railY = 0.2325;
+float nearPostX = 0.0,nearPostY = .122,nearPostZ=3.475,farPostX=0.0,farPostY = .120,farPostZ = 2.0, roadY = .005;
 float initialThetaX, initialThetaY, initialThetaZ, thetaX, thetaY, thetaZ = 0.0;
 float yOffset = 0.16, zOffset = 0.225;
 
@@ -386,7 +388,7 @@ void display( void ){
     float eye_y = r * sin(tr_z);
     
     vec4 up = vec4(0.0, cos(tr_z), 0.0, 0.0);
-    cout << up << ' ' << normalize(up) << endl;
+//    cout << up << ' ' << normalize(up) << endl;
     
     view_matrix = LookAt( vec4(eye_x, eye_y, eye_z, 1.0), vec4(0.0, 0.0, 0.0, 1.0), vec4(0.0, cos(tr_z), 0.0, 0.0));
     
@@ -585,7 +587,7 @@ void display( void ){
     SetMaterial(vec4(0.2, 0.2, 0.2, 1.0), vec4(0.7343, 0.5546, 0.4336, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    mat4 transform = Translate( 0.0, 0.005, 0.0 ) * Scale(2.5, 0.05, 25.0);
+    mat4 transform = Translate( 0.0, roadY, 0.0 ) * Scale(2.5, 0.05, 25.0);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -614,79 +616,6 @@ void display( void ){
     glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
     glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
     
-    
-    
-    
-//    //---- Ramp
-//   //---- Center Piece
-//    
-//    glBindTexture( GL_TEXTURE_2D, textures[4] );
-//    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
-//    
-//    SetMaterial(vec4(0.2, 0.2, 0.2, 1.0), vec4(0.23, 0.726, 0.421, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
-//    glUniform1i( glGetUniformLocation(program, "light_out"), false );
-//    
-//    
-//    transform = Translate( 0.0, 0.25, 2.0 ) * Scale(1.0, 0.5, 1.0);
-//    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
-//    
-//    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
-//    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
-//    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
-//    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
-//    
-//    //---- Side Skirts
-//    
-//    //---- #1
-//    glBindTexture( GL_TEXTURE_2D, textures[4] );
-//    glUniform1i( glGetUniformLocation(program, "texture_on"), false );
-//    
-//    SetMaterial(vec4(0.2, 0.2, 0.2, 1.0), vec4(0.23, 0.726, 0.421, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
-//    glUniform1i( glGetUniformLocation(program, "light_out"), false );
-//    
-//    
-//    transform = Translate( 0.0, 0.3, 2.85 ) * RotateX(25) * Scale(1.0, 0.05, 0.8);
-//    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
-//    
-//    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
-//    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
-//    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
-//    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
-//    
-//    //---- #2
-//    glBindTexture( GL_TEXTURE_2D, textures[4] );
-//    glUniform1i( glGetUniformLocation(program, "texture_on"), false );
-//    
-//    SetMaterial(vec4(0.2, 0.2, 0.2, 1.0), vec4(0.23, 0.726, 0.421, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
-//    glUniform1i( glGetUniformLocation(program, "light_out"), false );
-//    
-//    
-//    transform = Translate( 0.0, 0.3, 1.15 ) * RotateY(180) * RotateX(25) * Scale(1.0, 0.05, 0.8);
-//    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
-//    
-//    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
-//    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
-//    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
-//    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
-//    
-//    glBindTexture( GL_TEXTURE_2D, textures[1] );
-//    glUniform1i( glGetUniformLocation(program, "texture_on"), false );
-//    
-//    SetMaterial(vec4(0.2, 0.2, 0.2, 1.0), vec4(0.23, 0.726, 0.421, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
-//    glUniform1i( glGetUniformLocation(program, "light_out"), false );
-//    
-//    
-//    transform = Translate( 0.0, 0.25, 3.0 ) * Scale(3.0, 0.5, 2.0);
-//    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
-//    
-//    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(TRIANGLE_OFFSET) );
-//    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(TRIANGLE_NORMALS_OFFSET) );
-//    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(TRIANGLE_TEXCOORDS_OFFSET) );
-//    glDrawArrays( GL_TRIANGLES, 0, NumVerticesTri );
-    
-    
-    
-    
     //----- Grinding Rail
     
     // Rail
@@ -697,7 +626,7 @@ void display( void ){
     SetMaterial(vec4(0.0, 0.0, 1.0, 1.0), vec4(0.925, 0.925, 0.925, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    mat4 rail = Translate( -1, 0.2325, 2.75 ) * RotateY(90) * Scale(1.5, 0.04, 0.04) * RotateZ(90);
+    mat4 rail = Translate( 0, railY, 2.75 ) * RotateY(90) * Scale(1.5, 0.04, 0.04) * RotateZ(90);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, rail );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -716,7 +645,7 @@ void display( void ){
     SetMaterial(vec4(0.0, 0.0, 1.0, 1.0), vec4(0.925, 0.925, 0.925, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    mat4 post = Translate( -1, 0.122, 3.475 ) * Scale(0.04, .265, 0.05);
+    mat4 post = Translate( nearPostX, nearPostY, nearPostZ ) * Scale(0.04, .265, 0.05);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, post);
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -735,7 +664,7 @@ void display( void ){
     SetMaterial(vec4(0.0, 0.0, 1.0, 1.0), vec4(0.925, 0.925, 0.925, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    mat4 postTwo = Translate( -1, 0.120, 2.0 ) * Scale(0.04, .265, 0.05);
+    mat4 postTwo = Translate( farPostX, farPostY, farPostZ ) * Scale(0.04, .265, 0.05);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, postTwo);
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -970,13 +899,12 @@ void display( void ){
 
 //----------------------------------------------------------------------------
 
+enum Trick {ollie=0,kickflip=1};
+Trick entryTrick = kickflip;
 float popAngle = 30;
 float counter = 0;
-int turnFacing = 0;
-bool northFacing, southFacing, eastFacing, westFacing = false;// if 1 then skateRight/skateLeft, else skateForward/Backward
+bool postReached = false, grind = false, enterGrind = false, grindStart = false, exitGrind = false, endReached = false;
 bool skateForward = false, skateBackwards = false, skateRight = false, skateLeft = false;
-bool inQOne, inQTwo, inQThree, inQFour = false;
-bool turnRight = false, turnLeft = false, turnDone = false;
 bool doKickflip = false;
 bool doOllie = false, doPop = false, ollieReached = false, ollieDone = false;
 bool doManual = false, manualReached = false, manualDone = false;
@@ -1025,20 +953,6 @@ void keyboard( unsigned char key, int x, int y ){
             glutPostRedisplay();
             break;
             
-        case 't':  // turn right 90deg
-            turnRight = true;
-            turnDone = false;
-            turnLeft = false;
-            glutPostRedisplay();
-            break;
-            
-        case 'T':  // turn left 90deg
-            turnLeft = true;
-            turnDone = false;
-            turnRight = false;
-            glutPostRedisplay();
-            break;
-            
         case 'u':
             //view_matrix = default_view_matrix;
             Theta3[Xaxis] = 0.0;
@@ -1076,13 +990,12 @@ void keyboard( unsigned char key, int x, int y ){
             skateBackwards = false;
             glutPostRedisplay();
             break;
-            
-//        case 'p': // pedal backwards
-//            skateBackwards = true;
-//            skateForward = false;
-//            glutPostRedisplay();
-//            break;
-            
+         case 'p':
+            skateForward = true;
+            enterGrind = true;
+            skateBackwards = true;
+            glutPostRedisplay();
+            break;
         case 's': // stop
             skateForward = false;
             skateBackwards = false;
@@ -1112,157 +1025,99 @@ void mouse( int button, int state, int x, int y ){
 void idle( void ){
     Theta4[Xaxis] = fmod(Theta4[Xaxis]+0.5, 360.0);
     
-    float frontBoundary = 3.0;
+    float frontBoundary = 4.0;
     float rearBoundary = -3.0;
     float step = 0.1/10;
     float oneRadian = M_PI/180;
     
-    if(fmod(thetaY,360) == 0)
+    if (farPostZ - (boardZ+zOffset) <= 0.6  && enterGrind)
     {
-        northFacing = true;
-        southFacing = false;
-        eastFacing = false;
-        westFacing = false;
+        grind = true;
+        enterGrind = false;
+        postReached = true;
+        switch(entryTrick)
+        {
+            case kickflip:
+            {
+                doKickflip = true;
+            }
+            case ollie:
+            {
+                doOllie = true;
+                doPop = true;
+                ollieReached = false;
+                ollieDone = false;
+                break;
+            }
+        }
+        grindStart = false;
+        endReached = false;
+        exitGrind = false;
     }
-    else if(fmod(thetaY,270) == 0)
+    if (postReached && !doPop)
     {
-        northFacing = false;
-        southFacing = false;
-        eastFacing = true;
-        westFacing = false;
+        if (frontTrAxY-railY <= 0)
+        {
+            switch(entryTrick)
+            {
+                case kickflip:
+                {
+                    doKickflip = false;
+                }
+                case ollie:
+                {
+                    doOllie = false;
+                    doPop = false;
+                    ollieReached = true;
+                    ollieDone = true;
+                    break;
+                }
+            }
+            grindStart = true;
+            doManual = true;
+            manualReached = false;
+            manualDone = false;
+            postReached = false;
+        }
     }
-    else if(fmod(thetaY,180) == 0)
+    if (grindStart && !endReached)
     {
-        northFacing = false;
-        southFacing = true;
-        eastFacing = false;
-        westFacing = false;
+        if (nearPostZ - frontTrAxZ <= 0.35)
+        {
+            grindStart = false;
+            endReached = true;
+            doManual=false;
+            manualDone = true;
+            manualReached = true;
+        }
     }
-    else if(fmod(thetaY,90) == 0)
+    if (endReached)
     {
-        northFacing = false;
-        southFacing = false;
-        eastFacing = false;
-        westFacing = true;
+        endReached = false;
+        exitGrind = true;
+        postReached = false;
+        grindStart = false;
+        doOllie = true;
+        doPop = true;
+        ollieReached = false;
+        ollieDone = false;
     }
-    
     if (skateForward)
     {
-      if(northFacing)
-      {
         boardZ += step;
         frontTrAxZ += step;
         frontWheelsZ += step;
         rearTrAxZ += step;
         rearWheelsZ += step;
-        boardZ = fmod(boardZ,3.0);
+        boardZ = fmod(boardZ,frontBoundary);
         rearWheelsZ = fmod(rearWheelsZ,frontBoundary);
         frontWheelsZ = fmod(frontWheelsZ,frontBoundary);
         rearTrAxZ = fmod(rearTrAxZ,frontBoundary);
         frontTrAxZ = fmod(frontTrAxZ,frontBoundary);
-        if(frontBoundary-frontTrAxZ <= 0.3)
+        if(frontBoundary-frontTrAxZ <= 0.1)
         {
           skateForward = false;
         }
-      }
-      else if(southFacing)
-      {
-          boardZ -= step;
-          frontTrAxZ -= step;
-          frontWheelsZ -= step;
-          rearTrAxZ -= step;
-          rearWheelsZ -= step;
-          boardZ = fmod(boardZ,rearBoundary);
-          rearWheelsZ = fmod(rearWheelsZ,rearBoundary);
-          frontWheelsZ = fmod(frontWheelsZ,rearBoundary);
-          rearTrAxZ = fmod(rearTrAxZ,rearBoundary);
-          frontTrAxZ = fmod(frontTrAxZ,rearBoundary);
-          if(frontBoundary + frontTrAxZ <= 0.1)
-          {
-              skateForward = false;
-          }
-      }
-      else if(eastFacing)
-      {
-          boardX -= step;
-          frontTrAxX -= step;
-          frontWheelsX -= step;
-          rearTrAxX -= step;
-          rearWheelsX -= step;
-          boardX = fmod(boardX,rearBoundary);
-          rearWheelsX = fmod(rearWheelsX,rearBoundary);
-          frontWheelsX = fmod(frontWheelsX,rearBoundary);
-          rearTrAxX = fmod(rearTrAxX,rearBoundary);
-          frontTrAxX = fmod(frontTrAxX,rearBoundary);
-          if(frontBoundary + frontTrAxX <= 0.1)
-          {
-              skateForward = false;
-          }
-      }
-      else if(westFacing)
-      {
-          boardX += step;
-          frontTrAxX += step;
-          frontWheelsX += step;
-          rearTrAxX += step;
-          rearWheelsX += step;
-          boardX = fmod(boardX,rearBoundary);
-          rearWheelsX = fmod(rearWheelsX,rearBoundary);
-          frontWheelsX = fmod(frontWheelsX,rearBoundary);
-          rearTrAxX = fmod(rearTrAxX,rearBoundary);
-          frontTrAxX = fmod(frontTrAxX,rearBoundary);
-          if(frontBoundary - frontTrAxX <= 0.1)
-          {
-              skateForward = false;
-          }
-      }
-    }
-    if (skateBackwards)
-    {
-      boardZ -= step;
-      frontTrAxZ -= step;
-      frontWheelsZ -= step;
-      rearTrAxZ -= step;
-      rearWheelsZ -= step;
-      boardZ = fmod(boardZ,rearBoundary);
-      rearWheelsZ = fmod(rearWheelsZ,rearBoundary);
-      frontWheelsZ = fmod(frontWheelsZ,rearBoundary);
-      rearTrAxZ = fmod(rearTrAxZ,rearBoundary);
-      frontTrAxZ = fmod(frontTrAxZ,rearBoundary);
-      if(frontBoundary + frontTrAxZ <= 0.1)
-      {
-          skateBackwards = false;
-      }
-    }
-    if (turnLeft)
-    {
-        if(!turnDone)
-        {
-          thetaY += 9;
-          if (fmod(thetaY,90) == 0)
-          {
-              turnDone = true;
-              turnLeft = false;
-              skateForward = false;
-              skateBackwards = false;
-          }
-        }
-        turnFacing += 1;
-    }
-    if (turnRight)
-    {
-        if(!turnDone)
-        {
-            thetaY -= 9;
-            if (fmod(thetaY,90) == 0)
-            {
-                turnDone = true;
-                turnRight = false;
-                skateForward = false;
-                skateBackwards = false;
-            }
-        }
-        turnFacing += 1;
     }
     if (doManual)
     {
@@ -1270,12 +1125,23 @@ void idle( void ){
       {
         if(manualReached)
         {
-          thetaX += 1;
-          if(thetaX == 0)
+          if(grind)
           {
-            thetaX = 0;
-            manualDone = true;
-            doManual = false;
+            float boardNose = boardZ+zOffset;
+            if(nearPostZ-boardNose <= 0.3)
+            {
+                grind = false;
+            }
+          }
+          else
+          {
+            thetaX += 1;
+            if(thetaX == 0)
+            {
+              thetaX = 0;
+              manualDone = true;
+              doManual = false;
+            }
           }
         }
         else
@@ -1322,18 +1188,28 @@ void idle( void ){
           }
           else
           {
-              counter++;
-              float oneRadian = M_PI/180;
-              boardY -= oneRadian;
-              frontTrAxY -= oneRadian;
-              frontWheelsY -= oneRadian;
-              rearTrAxY -= oneRadian;
-              rearWheelsY -= oneRadian;
-              if(counter >= popAngle)
-              {
+              cout << exitGrind << endl;
+                counter++;
+                float oneRadian = M_PI/180;
+                boardY -= oneRadian;
+                frontTrAxY -= oneRadian;
+                frontWheelsY -= oneRadian;
+                rearTrAxY -= oneRadian;
+                rearWheelsY -= oneRadian;
+                if(frontWheelsY <= roadY && !exitGrind)
+                {
                   ollieDone = true;
+                  doOllie = false;
                   counter = 0;
-              }
+                }
+                else if(exitGrind)
+                {
+                  if (frontWheelsY-railY <= -railY+.01)
+                  {
+                      ollieDone = true;
+                      doOllie = false;
+                  }
+                }
           }
 
         }
@@ -1342,7 +1218,7 @@ void idle( void ){
     {
       if (!doPop)
       {
-          thetaZ += 20;
+          thetaZ += 36;
           thetaZ = fmod(thetaZ,360);
           if(thetaZ == 0)
               doKickflip = false;
