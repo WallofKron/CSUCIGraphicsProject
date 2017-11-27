@@ -760,7 +760,7 @@ void display( void ){
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.98, 0.98, 0.98, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    transform = Translate( 0.0, 0.6, 0.3 ) * Scale(0.1, 0.35, 0.2);
+    transform = RotateX(thetaX) * RotateY(thetaY) * Translate( 0.0 + boardX, 0.6 + boardY, 0.2 + boardZ ) * Scale(0.1, 0.35, 0.2);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -777,7 +777,7 @@ void display( void ){
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.0, 0.0, 0.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    transform = Translate( 0.0, 0.3, 0.35 ) * Scale(0.05, 0.25, 0.05);
+    transform = RotateX(thetaX) * RotateY(thetaY) * Translate( 0.0 + boardX, 0.3 + boardY, 0.25 + boardZ ) * Scale(0.05, 0.25, 0.05);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
@@ -792,7 +792,7 @@ void display( void ){
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.0, 0.0, 0.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    transform = Translate( 0.0, 0.3, 0.25 ) * Scale(0.05, 0.25, 0.05);
+    transform = RotateX(thetaX) * RotateY(thetaY) * Translate( 0.0 + boardX, 0.3 + boardY, 0.15 + boardZ ) * Scale(0.05, 0.25, 0.05);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
@@ -809,7 +809,7 @@ void display( void ){
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.0, 0.0, 0.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    transform = Translate( 0.0, 0.6, 0.45 ) * RotateX(-45) * Scale(0.05, 0.25, 0.05);
+    transform = RotateX(thetaX) * RotateY(thetaY) * Translate( 0.0 + boardX, 0.6 + boardY, 0.35 + boardZ ) *  RotateX(-45) * Scale(0.05, 0.25, 0.05);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
@@ -826,7 +826,7 @@ void display( void ){
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.0, 0.0, 0.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    transform = Translate( 0.0, 0.6, 0.15 ) * RotateX(45) * Scale(0.05, 0.25, 0.05);
+    transform = RotateX(thetaX) * RotateY(thetaY) * Translate( 0.0 + boardX, 0.6 + boardY, 0.05 + boardZ ) * RotateX(45) * Scale(0.05, 0.25, 0.05);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
@@ -843,7 +843,7 @@ void display( void ){
     SetMaterial( vec4(0.4, 0.4, 0.4, 1.0), vec4(0.985, 0.985, 0.985, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    mat4 transform_bube3 = Translate( 0.0, 0.9, 0.3 ) * Scale(0.25, 0.25, 0.25) * RotateY(180);
+    mat4 transform_bube3 = RotateX(thetaX) * RotateY(thetaY) * Translate( 0.0 + boardX, 0.9 + boardY, 0.2 + boardZ ) *  Scale(0.25, 0.25, 0.25) * RotateY(180);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform_bube3 );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(SPHERE_OFFSET) );
@@ -857,6 +857,10 @@ void display( void ){
     
     
     
+    
+    
+    
+    //MAKE 2 SEPARATE GRASS FIELDS... TRANSFER ONE INTO ANOTHER.SMOOTHER TRANSITIIONING
     
     
     
@@ -1036,12 +1040,12 @@ void idle( void ){
     Theta4[Xaxis] = fmod(Theta4[Xaxis]+0.5, 360.0);
     
     
-    if (environmentShifty > 21){
+    if (environmentShifty < 0){
 
-        environmentShifty = 0;
+        environmentShifty = 22;
     } else {
     
-        environmentShifty += 0.07;
+        environmentShifty -= 0.05;
     }
     
     
