@@ -35,6 +35,12 @@ GLfloat  Theta4[NumAxes] = { 0.0, 0.0, 0.0 };
 GLfloat dist = 0.0;
 
 float environmentShifty = 0.0;
+float environmentShifty2 = 0.0;
+
+
+float grass1 = 10.0;
+float grass2 = 40.0;
+
 
 bool lightSource = false;
 
@@ -349,7 +355,7 @@ void display( void ){
     float bottom = -1.0;
     float top = 1.0;
     float zNear = 1.0;
-    float zFar = 40.0;
+    float zFar = 50.0;
     
     
     proj_matrix = Frustum( left, right, bottom, top, zNear, zFar );
@@ -557,6 +563,7 @@ void display( void ){
     
     
     //-------- Environment! -----
+    
     //---- Concrete road
     
     glBindTexture( GL_TEXTURE_2D, textures[3] );
@@ -565,7 +572,7 @@ void display( void ){
     SetMaterial(vec4(0.2, 0.2, 0.2, 1.0), vec4(0.7343, 0.5546, 0.4336, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    mat4 transform = Translate( 0.0, roadY, -10.0 + environmentShifty ) * Scale(2.25, 0.05, 40.0);
+    mat4 transform = Translate( 0.0, roadY, grass1 ) * Scale(2.25, 0.05, 30.0);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -574,7 +581,29 @@ void display( void ){
 
     glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
     
+    
+    
+    //---- Concrete road2
+    
+    glBindTexture( GL_TEXTURE_2D, textures[3] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true);
+    
+    SetMaterial(vec4(0.2, 0.2, 0.2, 1.0), vec4(0.7343, 0.5546, 0.4336, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( 0.0, roadY, grass2 ) * Scale(2.25, 0.05, 30.0);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
+    
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
 
+    
+    
+    
+    
     
     //---- Grass
     
@@ -584,7 +613,7 @@ void display( void ){
     SetMaterial(vec4(0.2, 0.2, 0.2, 1.0), vec4(0.23, 0.726, 0.421, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    transform = Translate( 0.0, 0.0, -10.0 + environmentShifty) * Scale(12.0, 0.05, 40.0);
+    transform = Translate( 0.0, 0.0, grass1) * Scale(12.0, 0.05, 30.0);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -594,6 +623,24 @@ void display( void ){
     
     
     
+    
+    
+    //---- Grass2
+    
+    glBindTexture( GL_TEXTURE_2D, textures[1] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.2, 0.2, 0.2, 1.0), vec4(0.23, 0.726, 0.421, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( 0.0, 0.0, grass2) * Scale(12.0, 0.05, 30.0);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
+
     
     
     
@@ -679,7 +726,7 @@ void display( void ){
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    transform = Translate( -2.5, 0.2, -11.0 + environmentShifty ) * Scale(0.5, 0.07, 1.0);
+    transform = Translate( -2.5, 0.2, -11.0 + grass2 ) * Scale(0.5, 0.07, 1.0);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -697,7 +744,7 @@ void display( void ){
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    transform = Translate( -2.5, 0.2, -11.5 + environmentShifty ) * Scale(0.5, 0.4, 0.05);
+    transform = Translate( -2.5, 0.2, -11.5 + grass2 ) * Scale(0.5, 0.4, 0.05);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -715,7 +762,7 @@ void display( void ){
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    transform = Translate( -2.5, 0.2, -10.5 + environmentShifty ) * Scale(0.5, 0.4, 0.05);
+    transform = Translate( -2.5, 0.2, -10.5 + grass2 ) * Scale(0.5, 0.4, 0.05);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -733,7 +780,89 @@ void display( void ){
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    transform = Translate( -2.75, 0.3, -11.0 + environmentShifty ) * Scale(0.05, 0.5, 1.05);
+    transform = Translate( -2.75, 0.3, -11.0 + grass2 ) * Scale(0.05, 0.5, 1.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //----------- Bench 2 !!! ------
+    //---- BenchBase
+    
+    glBindTexture( GL_TEXTURE_2D, textures[3] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( 2.5, 0.2, -11.0 + grass1 ) * Scale(0.5, 0.07, 1.0);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
+    
+    
+    
+    //---- BenchLeftLeg
+    
+    glBindTexture( GL_TEXTURE_2D, textures[3] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( 2.5, 0.2, -11.5 + grass1 ) * Scale(0.5, 0.4, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
+    
+    
+    
+    //---- BenchRightLeg
+    
+    glBindTexture( GL_TEXTURE_2D, textures[3] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( 2.5, 0.2, -10.5 + grass1 ) * Scale(0.5, 0.4, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
+    
+    
+    
+    //---- BenchBack
+    
+    glBindTexture( GL_TEXTURE_2D, textures[3] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( 2.75, 0.3, -11.0 + grass1 ) * Scale(0.05, 0.5, 1.05);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -753,7 +882,8 @@ void display( void ){
     
     
     
-    //  ----------  GUY     -------
+    
+    //  ----------    GUY   -------
     //---- Body
     
     glBindTexture( GL_TEXTURE_2D, textures[7] );
@@ -861,15 +991,6 @@ void display( void ){
     
     
     
-    
-    //MAKE 2 SEPARATE GRASS FIELDS... TRANSFER ONE INTO ANOTHER.SMOOTHER TRANSITIIONING
-    
-    
-    
-    
-    
-    
-    
     //---- Sky Sphere
     
     glBindTexture( GL_TEXTURE_2D, textures[6] );
@@ -878,7 +999,7 @@ void display( void ){
     SetMaterial( vec4(0.4, 0.4, 0.4, 1.0), vec4(0.925, 0.925, 0.925, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), true );
     
-    mat4 transform_bube4 = Translate( 0.0, 8.0, 0.0 ) * Scale(25.0, 25.0, 25.0);
+    mat4 transform_bube4 = Translate( 0.0, 6.0, 0.0 ) * Scale(25.0, 25.0, 25.0);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform_bube4 );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(SPHERE_OFFSET) );
@@ -886,8 +1007,6 @@ void display( void ){
     glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(SPHERE_TEXCOORDS_OFFSET) );
     glDrawArrays( GL_TRIANGLES, 0, NumVerticesSphere );
 
-    
-    
     
     
     
@@ -1028,13 +1147,21 @@ void idle( void ){
     Theta4[Xaxis] = fmod(Theta4[Xaxis]+0.5, 360.0);
     
     
-    if (environmentShifty < 0){
-
-        environmentShifty = 22;
+    if (grass1 < -25.0){
+            grass1 = 30.0;
     } else {
-    
-        environmentShifty -= 0.05;
+            grass1 -= 0.1;
     }
+    
+    
+    
+    if (grass2 < -25.0){
+            grass2 = 30.0;
+    } else {
+            grass2 -= 0.1;
+    }
+    
+    
     
     
    float frontBoundary = 4.0;
