@@ -258,9 +258,7 @@ vec3 normals_sphere[NumVerticesSphere];
 vec2 tex_coords_sphere[NumVerticesSphere];
 
 // quad generates two triangles for each face and assigns colors to the vertices
-void
-quad_sphere( int a, int b, int c, int d, float t0, float t1, float p0, float p1 )
-{
+void quad_sphere( int a, int b, int c, int d, float t0, float t1, float p0, float p1 ){
     points_sphere[Index] = vertices_sphere[a];
     normals_sphere[Index] = vec3(vertices_sphere[a].x, vertices_sphere[a].y, vertices_sphere[a].z);
     tex_coords_sphere[Index] = vec2( t0/(2*M_PI), -(p1-M_PI/2.0)/M_PI );
@@ -292,48 +290,11 @@ quad_sphere( int a, int b, int c, int d, float t0, float t1, float p0, float p1 
     Index++;
 }
 
+
 void colorbube(void){
-    float r = 0.5;
     Index = 0;
-    float ph_top = ((float)((ssegments/2)-1)/(float)(ssegments/2)) * M_PI/2.0;
-    float ph_bottom = -ph_top;
     
-    //cout << ph_bottom << endl;
-    
-    for ( int n = 0; n < ssegments; n++ )
-    {
-        GLfloat const t0 = 2 * M_PI * (float)n / (float)ssegments;
-        GLfloat const t1 = 2 * M_PI * (float)(n+1) / (float)ssegments;
-        
-        points_sphere[Index].x = 0.0;
-        points_sphere[Index].y = top;
-        points_sphere[Index].z = 0.0;
-        points_sphere[Index].w = 1.0;
-        normals_sphere[Index] = vec3(points_sphere[Index].x, points_sphere[Index].y, points_sphere[Index].z);
-        tex_coords_sphere[Index] = vec2( 0.0, 0.0);
-        
-        Index++;
-        
-        points_sphere[Index].x = cos(ph_top) * cos(t0) * r;
-        points_sphere[Index].y = sin(ph_top) * r;
-        points_sphere[Index].z = cos(ph_top) * sin(t0) * r;
-        points_sphere[Index].w = 1.0;
-        normals_sphere[Index] = vec3(points_sphere[Index].x, points_sphere[Index].y, points_sphere[Index].z);
-        tex_coords_sphere[Index] = vec2( t0/(2*M_PI), -(ph_top-M_PI/2.0)/M_PI);
-        
-        Index++;
-        
-        points_sphere[Index].x = cos(ph_top) * cos(t1) * r;
-        points_sphere[Index].y = sin(ph_top) * r;
-        points_sphere[Index].z = cos(ph_top) * sin(t1) * r;
-        points_sphere[Index].w = 1.0;
-        normals_sphere[Index] = vec3(points_sphere[Index].x, points_sphere[Index].y, points_sphere[Index].z);
-        tex_coords_sphere[Index] = vec2( t1/(2*M_PI), -(ph_top-M_PI/2.0)/M_PI);
-        
-        Index++;
-    }
-    
-    for( int m = 1; m < ssegments-1; m++ )
+    for( int m = 0; m < ssegments; m++ )
     {
         float p0 = M_PI/2.0 - m * M_PI/(float)ssegments;
         float p1 = M_PI/2.0 - (m+1) * M_PI/(float)ssegments;
@@ -342,7 +303,7 @@ void colorbube(void){
         for ( int n = 0; n < ssegments; n++ )
         {
             num = 0;
-            float x = 0.0, y = 0.0, r = 0.5;
+            float r = 0.5;
             
             GLfloat const t0 = 2 * M_PI * (float)n / (float)ssegments;
             GLfloat const t1 = 2 * M_PI * (float)(n+1) / (float)ssegments;
@@ -371,40 +332,6 @@ void colorbube(void){
             quad_sphere( 0, 1, 2, 3, t0, t1, p0, p1 );
         }
     }
-    
-    for ( int n = 0; n < ssegments; n++ )
-    {
-        GLfloat const t0 = 2 * M_PI * (float)n / (float)ssegments;
-        GLfloat const t1 = 2 * M_PI * (float)(n+1) / (float)ssegments;
-        
-        points_sphere[Index].x = 0.0;
-        points_sphere[Index].y = bottom;
-        points_sphere[Index].z = 0.0;
-        points_sphere[Index].w = 1.0;
-        normals_sphere[Index] = vec3(points_sphere[Index].x, points_sphere[Index].y, points_sphere[Index].z);
-        tex_coords_sphere[Index] = vec2( 0.0, 1.0);
-        
-        Index++;
-        
-        points_sphere[Index].x = cos(ph_bottom) * cos(t0) * r;
-        points_sphere[Index].y = sin(ph_bottom) * r;
-        points_sphere[Index].z = cos(ph_bottom) * sin(t0) * r;
-        points_sphere[Index].w = 1.0;
-        normals_sphere[Index] = vec3(points_sphere[Index].x, points_sphere[Index].y, points_sphere[Index].z);
-        tex_coords_sphere[Index] = vec2( t0/(2*M_PI), -(ph_bottom-M_PI/2.0)/M_PI);
-        
-        Index++;
-        
-        points_sphere[Index].x = cos(ph_bottom) * cos(t1) * r;
-        points_sphere[Index].y = sin(ph_bottom) * r;
-        points_sphere[Index].z = cos(ph_bottom) * sin(t1) * r;
-        points_sphere[Index].w = 1.0;
-        normals_sphere[Index] = vec3(points_sphere[Index].x, points_sphere[Index].y, points_sphere[Index].z);
-        tex_coords_sphere[Index] = vec2( t1/(2*M_PI), -(ph_bottom-M_PI/2.0)/M_PI);
-        
-        Index++;
-    }
-    
 }
 
 
