@@ -331,16 +331,15 @@ mat4 view_matrix;
 mat4 wheelOneTransform, wheelTwoTransform, wheelThreeTransform, wheelFourTransform, frontAxleTransform, rearAxleTransform, frontTruckTransform, rearTruckTransform, boardCenterTransform, rearBoardEdgeTransform, frontBoardEdgeTransform;
 float r = 5.0;
 float railY = 0.2325;
-float nearPostX = -1, nearPostY = .122, nearPostZ = -11.475, farPostX = -1, farPostY = .120, farPostZ = -10, roadY = .005;
+float nearPostX = -1, nearPostY = .122, nearPostZ = -9.5, farPostX = -1, farPostY = .120, farPostZ = -18.0, roadY = .005;
 float initialThetaX, initialThetaY, initialThetaZ, thetaX, thetaY, thetaZ = 0.0;
-float yOffset = 0.16, zOffset = 0.225;
+float xOffset = 0.0, yOffset = 0.16, zOffset = 0.225;
 
 
 
 void display( void ){
     
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-    
     
     
     //---- lights
@@ -405,7 +404,7 @@ void display( void ){
     SetMaterial( vec4(0.9, 0.9, 0.5, 1.0), vec4(0.9, 0.9, 0.5, 1.0), vec4(0.9, 0.9, 0.0, 1.0), 0.5);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    wheelOneTransform = Translate(rearWheelsX,rearWheelsY,rearWheelsZ) * RotateX(thetaX) * RotateY(thetaY) * RotateZ(thetaZ) * Translate(-0.118, 0.08, -zOffset+zOffset ) * RotateY(90) * RotateZ(initialThetaZ) * Scale(0.08, 0.08, 0.08);
+    wheelOneTransform = Translate(rearWheelsX,rearWheelsY,rearWheelsZ) * RotateX(thetaX) * RotateY(thetaY) * RotateZ(thetaZ) * Translate(-0.118 + xOffset, 0.08, -zOffset+zOffset ) * RotateY(90) * RotateZ(initialThetaZ) * Scale(0.08, 0.08, 0.08);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, wheelOneTransform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(TORUS_OFFSET) );
@@ -422,7 +421,7 @@ void display( void ){
     
     SetMaterial( vec4(0.9, 0.9, 0.5, 1.0), vec4(0.9, 0.9, 0.5, 1.0), vec4(0.9, 0.9, 0.0, 1.0), 0.5);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
-    wheelTwoTransform = Translate(rearWheelsX,rearWheelsY,rearWheelsZ) * RotateX(thetaX) * RotateY(thetaY) * RotateZ(thetaZ) *Translate( 0.118, 0.08, -zOffset+zOffset ) * RotateY(90) * RotateZ(initialThetaZ) * Scale(0.08, 0.08, 0.08);
+    wheelTwoTransform = Translate(rearWheelsX,rearWheelsY,rearWheelsZ) * RotateX(thetaX) * RotateY(thetaY) * RotateZ(thetaZ) *Translate( 0.118 + xOffset, 0.08, -zOffset+zOffset ) * RotateY(90) * RotateZ(initialThetaZ) * Scale(0.08, 0.08, 0.08);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, wheelTwoTransform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(TORUS_OFFSET) );
@@ -440,7 +439,7 @@ void display( void ){
     SetMaterial( vec4(0.9, 0.9, 0.5, 1.0), vec4(0.9, 0.9, 0.5, 1.0), vec4(0.9, 0.9, 0.0, 1.0), 0.5);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    wheelThreeTransform = Translate(frontWheelsX,frontWheelsY,frontWheelsZ) * RotateX(thetaX) * RotateY(thetaY) * RotateZ(thetaZ) *Translate( -0.118, 0.08, zOffset+zOffset ) * RotateY(90) * RotateZ(initialThetaZ) * Scale(0.08, 0.08, 0.08);
+    wheelThreeTransform = Translate(frontWheelsX,frontWheelsY,frontWheelsZ) * RotateX(thetaX) * RotateY(thetaY) * RotateZ(thetaZ) *Translate( -0.118 + xOffset, 0.08, zOffset+zOffset ) * RotateY(90) * RotateZ(initialThetaZ) * Scale(0.08, 0.08, 0.08);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, wheelThreeTransform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(TORUS_OFFSET) );
@@ -458,7 +457,7 @@ void display( void ){
     SetMaterial( vec4(0.9, 0.9, 0.5, 1.0), vec4(0.9, 0.9, 0.5, 1.0), vec4(0.9, 0.9, 0.0, 1.0), 0.5);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    wheelFourTransform = Translate(frontWheelsX,frontWheelsY,frontWheelsZ)* RotateX(thetaX) * RotateY(thetaY) * RotateZ(thetaZ) *Translate( 0.118, 0.08, zOffset+zOffset ) * RotateY(90) * RotateZ(initialThetaZ) * Scale(0.08, 0.08, 0.08);
+    wheelFourTransform = Translate(frontWheelsX,frontWheelsY,frontWheelsZ)* RotateX(thetaX) * RotateY(thetaY) * RotateZ(thetaZ) *Translate( 0.118 + xOffset, 0.08, zOffset+zOffset ) * RotateY(90) * RotateZ(initialThetaZ) * Scale(0.08, 0.08, 0.08);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, wheelFourTransform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(TORUS_OFFSET) );
@@ -476,7 +475,7 @@ void display( void ){
     SetMaterial(vec4(0.0, 0.4, 0.4, 1.0), vec4(0.925, 0.925, 0.925, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    frontAxleTransform =  Translate(frontTrAxX,frontTrAxY,frontTrAxZ)* RotateX(thetaX) * RotateY(thetaY) * RotateZ(thetaZ) *Translate( 0, 0.08, zOffset+zOffset ) * Scale(0.3, 0.04, 0.04) * RotateZ(90 + initialThetaZ);
+    frontAxleTransform =  Translate(frontTrAxX,frontTrAxY,frontTrAxZ)* RotateX(thetaX) * RotateY(thetaY) * RotateZ(thetaZ) *Translate( xOffset, 0.08, zOffset+zOffset ) * Scale(0.3, 0.04, 0.04) * RotateZ(90 + initialThetaZ);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, frontAxleTransform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
@@ -493,7 +492,7 @@ void display( void ){
     SetMaterial(vec4(0.0, 0.4, 0.4, 1.0), vec4(0.925, 0.925, 0.925, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    rearAxleTransform = Translate(rearTrAxX,rearTrAxY,rearTrAxZ)* RotateX(thetaX) * RotateY(thetaY) * RotateZ(thetaZ) *Translate( 0, 0.08, -zOffset+zOffset ) * Scale(0.3, 0.04, 0.04) * RotateZ(90 + initialThetaZ);
+    rearAxleTransform = Translate(rearTrAxX,rearTrAxY,rearTrAxZ)* RotateX(thetaX) * RotateY(thetaY) * RotateZ(thetaZ) *Translate( xOffset, 0.08, -zOffset+zOffset ) * Scale(0.3, 0.04, 0.04) * RotateZ(90 + initialThetaZ);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, rearAxleTransform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
@@ -510,7 +509,7 @@ void display( void ){
     SetMaterial(vec4(0.0, 0.4, 0.4, 1.0), vec4(0.925, 0.925, 0.925, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    frontTruckTransform = Translate(frontTrAxX,frontTrAxY,frontTrAxZ) * RotateX(thetaX) * RotateY(thetaY) * RotateZ(thetaZ) * Translate( 0, 0.11, zOffset+zOffset ) * * RotateZ(initialThetaZ) * Scale(0.03, 0.08, 0.04);
+    frontTruckTransform = Translate(frontTrAxX,frontTrAxY,frontTrAxZ) * RotateX(thetaX) * RotateY(thetaY) * RotateZ(thetaZ) * Translate( xOffset, 0.11, zOffset+zOffset ) * * RotateZ(initialThetaZ) * Scale(0.03, 0.08, 0.04);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, frontTruckTransform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
@@ -526,7 +525,7 @@ void display( void ){
     SetMaterial(vec4(0.0, 0.4, 0.4, 1.0), vec4(0.925, 0.925, 0.925, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    rearTruckTransform = Translate(rearTrAxX,rearTrAxY,rearTrAxZ)* RotateX(thetaX) * RotateY(thetaY) * RotateZ(thetaZ) *Translate( 0, 0.11, -zOffset+zOffset ) * RotateZ(initialThetaZ) *Scale(0.03, 0.08, 0.04);
+    rearTruckTransform = Translate(rearTrAxX,rearTrAxY,rearTrAxZ)* RotateX(thetaX) * RotateY(thetaY) * RotateZ(thetaZ) *Translate( xOffset, 0.11, -zOffset+zOffset ) * RotateZ(initialThetaZ) *Scale(0.03, 0.08, 0.04);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, rearTruckTransform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
@@ -542,7 +541,7 @@ void display( void ){
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    boardCenterTransform = Translate(boardX,boardY, boardZ) * RotateX(thetaX) * RotateY(thetaY) * RotateZ(thetaZ) * Translate( 0, yOffset, zOffset ) * RotateZ(initialThetaZ) * Scale(0.25, 0.025, 0.75);
+    boardCenterTransform = Translate(boardX,boardY, boardZ) * RotateX(thetaX) * RotateY(thetaY) * RotateZ(thetaZ) * Translate( xOffset, yOffset, zOffset ) * RotateY(initialThetaY) * RotateZ(initialThetaZ) * Scale(0.25, 0.025, 0.75);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, boardCenterTransform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -661,7 +660,7 @@ void display( void ){
     SetMaterial(vec4(0.0, 0.0, 1.0, 1.0), vec4(0.925, 0.925, 0.925, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    mat4 rail = Translate( 0, railY, -10.75 + grass1 ) * RotateY(90) * Scale(1.5, 0.04, 0.04) * RotateZ(90);
+    mat4 rail = Translate( 0, railY, -13.75 + grass1 ) * RotateY(90) * Scale(9.0, 0.04, 0.04) * RotateZ(90);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, rail );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -717,7 +716,7 @@ void display( void ){
     
     
     
-    //----------- Bench!!! ------
+    //----------- Bench 1!!! ------
     //---- BenchBase
     
     glBindTexture( GL_TEXTURE_2D, textures[3] );
@@ -726,7 +725,7 @@ void display( void ){
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    transform = Translate( -2.5, 0.2, -11.0 + grass2 ) * Scale(0.5, 0.07, 1.0);
+    transform = Translate( -2.5, 0.2, -22.5 + grass2 ) * Scale(0.5, 0.07, 1.0);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -744,7 +743,7 @@ void display( void ){
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    transform = Translate( -2.5, 0.2, -11.5 + grass2 ) * Scale(0.5, 0.4, 0.05);
+    transform = Translate( -2.5, 0.2, -23.0 + grass2 ) * Scale(0.5, 0.4, 0.05);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -762,7 +761,7 @@ void display( void ){
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    transform = Translate( -2.5, 0.2, -10.5 + grass2 ) * Scale(0.5, 0.4, 0.05);
+    transform = Translate( -2.5, 0.2, -22.0 + grass2 ) * Scale(0.5, 0.4, 0.05);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -780,7 +779,7 @@ void display( void ){
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    transform = Translate( -2.75, 0.3, -11.0 + grass2 ) * Scale(0.05, 0.5, 1.05);
+    transform = Translate( -2.75, 0.3, -22.5 + grass2 ) * Scale(0.05, 0.5, 1.05);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -808,7 +807,7 @@ void display( void ){
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    transform = Translate( 2.5, 0.2, -11.0 + grass1 ) * Scale(0.5, 0.07, 1.0);
+    transform = Translate( -2.5, 0.2, -22.5 + grass1 ) * Scale(0.5, 0.07, 1.0);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -826,7 +825,7 @@ void display( void ){
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    transform = Translate( 2.5, 0.2, -11.5 + grass1 ) * Scale(0.5, 0.4, 0.05);
+    transform = Translate( -2.5, 0.2, -23.0 + grass1 ) * Scale(0.5, 0.4, 0.05);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -844,7 +843,7 @@ void display( void ){
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    transform = Translate( 2.5, 0.2, -10.5 + grass1 ) * Scale(0.5, 0.4, 0.05);
+    transform = Translate( -2.5, 0.2, -22.0 + grass1 ) * Scale(0.5, 0.4, 0.05);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -862,7 +861,7 @@ void display( void ){
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    transform = Translate( 2.75, 0.3, -11.0 + grass1 ) * Scale(0.05, 0.5, 1.05);
+    transform = Translate( -2.75, 0.3, -22.5 + grass1 ) * Scale(0.05, 0.5, 1.05);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -873,6 +872,166 @@ void display( void ){
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //----------- Bench 3!!! ------
+    //---- BenchBase
+    
+    glBindTexture( GL_TEXTURE_2D, textures[3] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( 2.5, 0.2, -7.5 + grass2 ) * Scale(0.5, 0.07, 1.0);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
+    
+    
+    
+    //---- BenchLeftLeg
+    
+    glBindTexture( GL_TEXTURE_2D, textures[3] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( 2.5, 0.2, -7.0 + grass2 ) * Scale(0.5, 0.4, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
+    
+    
+    
+    //---- BenchRightLeg
+    
+    glBindTexture( GL_TEXTURE_2D, textures[3] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( 2.5, 0.2, -8.0 + grass2 ) * Scale(0.5, 0.4, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
+    
+    
+    
+    //---- BenchBack
+    
+    glBindTexture( GL_TEXTURE_2D, textures[4] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( 2.75, 0.3, -7.5 + grass2 ) * Scale(0.05, 0.5, 1.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //----------- Bench 4!!! ------
+    //---- BenchBase
+    
+    glBindTexture( GL_TEXTURE_2D, textures[3] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( 2.5, 0.2, -7.5 + grass1 ) * Scale(0.5, 0.07, 1.0);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
+    
+    
+    
+    //---- BenchLeftLeg
+    
+    glBindTexture( GL_TEXTURE_2D, textures[3] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( 2.5, 0.2, -7.0 + grass1 ) * Scale(0.5, 0.4, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
+    
+    
+    
+    //---- BenchRightLeg
+    
+    glBindTexture( GL_TEXTURE_2D, textures[3] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( 2.5, 0.2, -8.0 + grass1 ) * Scale(0.5, 0.4, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
+    
+    
+    
+    //---- BenchBack
+    
+    glBindTexture( GL_TEXTURE_2D, textures[4] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.94, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( 2.75, 0.3, -7.5 + grass1 ) * Scale(0.05, 0.5, 1.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
     
     
     
@@ -1018,12 +1177,16 @@ void display( void ){
 
 //----------------------------------------------------------------------------
 
-enum Trick {ollie=0,kickflip=1};
+enum Trick {ollie=0,kickflip=1,shoveIt=2};
+enum Grind {boardSlide = 0, fiveOh = 1};
+Grind railGrind = fiveOh;
 Trick entryTrick = kickflip;
+Trick exitTrick = shoveIt;
 float popAngle = 30;
 float counter = 0;
 bool postReached = false, grind = false, enterGrind = false, grindStart = false, exitGrind = false, endReached = false;
 bool skateForward = false, skateBackwards = false, skateRight = false, skateLeft = false;
+bool doShoveIt = false, shoveItReached = false, doNinety = false;
 bool doKickflip = false;
 bool doOllie = false, doPop = false, ollieReached = false, ollieDone = false;
 bool doManual = false, manualReached = false, manualDone = false;
@@ -1109,11 +1272,38 @@ void keyboard( unsigned char key, int x, int y ){
             skateBackwards = false;
             glutPostRedisplay();
             break;
-            
-        case 'p': //sequence of tricks with rail
-            skateForward = true;
+        
+        case '1':  // ollie in, kickflip out
+            entryTrick = ollie;
+            exitTrick = kickflip;
             enterGrind = true;
-            skateBackwards = true;
+            glutPostRedisplay();
+            break;
+            
+        case '2': // ollie in, shoveIt out
+            //skateForward = true;
+            entryTrick = ollie;
+            exitTrick = shoveIt;
+            enterGrind = true;
+            glutPostRedisplay();
+            break;
+        
+        case '3': // shoveIt in, kickflip out
+            entryTrick = shoveIt;
+            exitTrick = kickflip;
+            enterGrind = true;
+            glutPostRedisplay();
+            break;
+        
+        case '4':
+            xOffset += 0.1;
+            doOllie = true;
+            doPop = true;
+            ollieReached = false;
+            ollieDone = false;
+            doShoveIt = true;
+            shoveItReached = false;
+            doNinety = true;
             glutPostRedisplay();
             break;
             
@@ -1150,7 +1340,7 @@ void idle( void ){
     if (grass1 < -25.0){
         grass1 = 34.85;
     } else {
-        grass1 -= 0.1;
+        grass1 -= 0.075;
     }
     
     
@@ -1158,7 +1348,7 @@ void idle( void ){
     if (grass2 < -25.0){
         grass2 = 34.85;
     } else {
-        grass2 -= 0.1;
+        grass2 -= 0.075;
     }
     
     
@@ -1169,13 +1359,24 @@ void idle( void ){
     float step = 0.1/10;
     float oneRadian = M_PI/180;
     
-    if (farPostZ - (boardZ+zOffset) <= 0.6  && enterGrind)
+
+    float boardToRailDifference = (farPostZ+grass1) - (boardZ+zOffset);
+    if (boardToRailDifference > 0 && boardToRailDifference <= 4.0  && enterGrind)
     {
         grind = true;
         enterGrind = false;
         postReached = true;
         switch(entryTrick)
         {
+            case shoveIt:
+            {
+                doShoveIt = true;
+                doOllie = true;
+                doPop = true;
+                ollieReached = false;
+                ollieDone = false;
+                break;
+            }
             case kickflip:
             {
                 doKickflip = true;
@@ -1189,16 +1390,59 @@ void idle( void ){
                 break;
             }
         }
+        if (railGrind == boardSlide)
+        {
+            doShoveIt = true;
+            doNinety = true;
+            shoveItReached = false;
+        }
         grindStart = false;
         endReached = false;
         exitGrind = false;
     }
     if (postReached && !doPop)
     {
-        if (frontTrAxY-railY <= 0)
+        if (railGrind == boardSlide && boardY-railY <= 0)
         {
             switch(entryTrick)
             {
+                case shoveIt:
+                {
+                    doShoveIt = false;
+                    doOllie = false;
+                    doPop = false;
+                    ollieReached = true;
+                    ollieDone = true;
+                    break;
+                }
+                case kickflip:
+                {
+                    doKickflip = false;
+                }
+                case ollie:
+                {
+                    doOllie = false;
+                    doPop = false;
+                    ollieReached = true;
+                    ollieDone = true;
+                    break;
+                }
+            }
+            grindStart = true;
+        }
+        else if (railGrind != boardSlide && frontTrAxY-railY <= 0)
+        {
+            switch(entryTrick)
+            {
+                case shoveIt:
+                {
+                    doShoveIt = false;
+                    doOllie = false;
+                    doPop = false;
+                    ollieReached = true;
+                    ollieDone = true;
+                    break;
+                }
                 case kickflip:
                 {
                     doKickflip = false;
@@ -1221,7 +1465,8 @@ void idle( void ){
     }
     if (grindStart && !endReached)
     {
-        if (nearPostZ - frontTrAxZ <= 0.35)
+        float truckToRailEndDifference = nearPostZ + (grass1+frontTrAxZ);
+        if (truckToRailEndDifference > 0 && truckToRailEndDifference <= 1.5)
         {
             grindStart = false;
             endReached = true;
@@ -1236,10 +1481,30 @@ void idle( void ){
         exitGrind = true;
         postReached = false;
         grindStart = false;
-        doOllie = true;
-        doPop = true;
-        ollieReached = false;
-        ollieDone = false;
+        switch(exitTrick)
+        {
+            case shoveIt:
+            {
+                doShoveIt = true;
+                doOllie = true;
+                doPop = true;
+                ollieReached = false;
+                ollieDone = false;
+                break;
+            }
+            case kickflip:
+            {
+                doKickflip = true;
+            }
+            case ollie:
+            {
+                doOllie = true;
+                doPop = true;
+                ollieReached = false;
+                ollieDone = false;
+                break;
+            }
+        }
     }
     if (skateForward)
     {
@@ -1256,6 +1521,33 @@ void idle( void ){
         if(frontBoundary-frontTrAxZ <= 0.1)
         {
             skateForward = false;
+        }
+    }
+    if (doShoveIt)
+    {
+        if(ollieReached)
+        {
+          if (!doNinety)
+          {
+            thetaY += 9;
+            thetaY = fmod(thetaY,360);
+            if(thetaY == 0)
+            {
+                doShoveIt = false;
+                shoveItReached = true;
+            }
+                
+          }
+          else
+          {
+
+              thetaY += 9;
+              if(fmod(thetaY,90) == 0)
+              {
+                  doShoveIt = false;
+                  shoveItReached = true;
+              }
+          }
         }
     }
     if (doManual)
