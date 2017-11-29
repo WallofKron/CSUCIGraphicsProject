@@ -131,7 +131,7 @@ void init(){
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
-
+    
     
     unsigned char* pic3 = NULL;
     int w3,h3;
@@ -170,7 +170,7 @@ void init(){
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
-
+    
     
     
     unsigned char* pic6 = NULL;
@@ -220,7 +220,7 @@ void init(){
     TRIANGLE_OFFSET = TORUS_TEXCOORDS_OFFSET + sizeof(tex_coords_torus);
     TRIANGLE_NORMALS_OFFSET = TRIANGLE_OFFSET + sizeof(points_triangle);
     TRIANGLE_TEXCOORDS_OFFSET = TRIANGLE_NORMALS_OFFSET + sizeof(normals_triangle);
-
+    
     
     
     // Create a vertex array object
@@ -347,7 +347,7 @@ void display( void ){
     
     SetLight( vec4( 0.0, 4.0, 0.0, 1.0), vec4(0.4, 0.4, 0.4, 1.0), vec4(0.95, 0.95, 0.95, 1.0), vec4(0.2, 0.2, 0.2, 1.0));
     
-
+    
     //---- camera intrinsic parameters
     
     float left = -1.0;
@@ -379,7 +379,7 @@ void display( void ){
     
     glUniformMatrix4fv( glGetUniformLocation( program, "view" ), 1, GL_TRUE, view_matrix );
     glUniform4fv( glGetUniformLocation( program, "cam_location" ), 1, vec4(eye_x, eye_y, eye_z, 1.0) );
-
+    
     
     
     
@@ -397,7 +397,7 @@ void display( void ){
     
     
     // ----------- SKATEBOARD ------------
-   //---- wh33l 0n3 rear left wheel
+    //---- wh33l 0n3 rear left wheel
     
     glBindTexture( GL_TEXTURE_2D, textures[0] );
     glUniform1i( glGetUniformLocation(program, "texture_on"), false );
@@ -412,7 +412,7 @@ void display( void ){
     glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(TORUS_NORMALS_OFFSET) );
     glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(TORUS_TEXCOORDS_OFFSET) );
     glDrawArrays( GL_TRIANGLES, 0, NumVerticesTorus );
-
+    
     
     
     //---- wh33l 7w0 rear right wheel
@@ -482,7 +482,7 @@ void display( void ){
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
     glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_NORMALS_OFFSET) );
     glDrawArrays( GL_TRIANGLES, 0, NumVerticesCylinder );
-
+    
     
     
     //----- Axle 2, rear axle
@@ -532,7 +532,7 @@ void display( void ){
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
     glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_NORMALS_OFFSET) );
     glDrawArrays( GL_TRIANGLES, 0, NumVerticesCylinder );
-
+    
     
     //---- board
     
@@ -550,7 +550,7 @@ void display( void ){
     glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
     glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
     
-
+    
     
     
     
@@ -568,7 +568,7 @@ void display( void ){
     
     glBindTexture( GL_TEXTURE_2D, textures[3] );
     glUniform1i( glGetUniformLocation(program, "texture_on"), true);
-
+    
     SetMaterial(vec4(0.2, 0.2, 0.2, 1.0), vec4(0.7343, 0.5546, 0.4336, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
@@ -578,7 +578,7 @@ void display( void ){
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
     glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
     glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
-
+    
     glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
     
     
@@ -599,7 +599,7 @@ void display( void ){
     glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
     
     glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
-
+    
     
     
     
@@ -640,7 +640,7 @@ void display( void ){
     glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
     glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
     glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
-
+    
     
     
     
@@ -661,7 +661,7 @@ void display( void ){
     SetMaterial(vec4(0.0, 0.0, 1.0, 1.0), vec4(0.925, 0.925, 0.925, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    mat4 rail = Translate( -1, railY, -10.75 + environmentShifty ) * RotateY(90) * Scale(1.5, 0.04, 0.04) * RotateZ(90);
+    mat4 rail = Translate( 0, railY, -10.75 + grass1 ) * RotateY(90) * Scale(1.5, 0.04, 0.04) * RotateZ(90);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, rail );
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -678,7 +678,7 @@ void display( void ){
     SetMaterial(vec4(0.0, 0.0, 1.0, 1.0), vec4(0.925, 0.925, 0.925, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    mat4 post = Translate( nearPostX, nearPostY, nearPostZ + environmentShifty ) * Scale(0.04, .265, 0.05);
+    mat4 post = Translate( 0.0, nearPostY, nearPostZ + grass1 ) * Scale(0.04, .265, 0.05);
     glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, post);
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
@@ -695,8 +695,8 @@ void display( void ){
     SetMaterial(vec4(0.0, 0.0, 1.0, 1.0), vec4(0.925, 0.925, 0.925, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
     glUniform1i( glGetUniformLocation(program, "light_out"), false );
     
-    mat4 postTwo = Translate( farPostX, farPostY, farPostZ + environmentShifty ) * Scale(0.04, .265, 0.05);
-    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, postTwo);
+    post = Translate( 0.0, farPostY, farPostZ + grass1 ) * Scale(0.04, .265, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, post);
     
     glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
     glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
@@ -733,7 +733,7 @@ void display( void ){
     glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
     glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
     glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
-
+    
     
     
     //---- BenchLeftLeg
@@ -752,7 +752,7 @@ void display( void ){
     glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
     glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
     
-
+    
     
     //---- BenchRightLeg
     
@@ -900,7 +900,7 @@ void display( void ){
     glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
     glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
     
-
+    
     // ---- Leg1
     
     glBindTexture( GL_TEXTURE_2D, textures[0] );
@@ -982,9 +982,9 @@ void display( void ){
     glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(SPHERE_NORMALS_OFFSET) );
     glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(SPHERE_TEXCOORDS_OFFSET) );
     glDrawArrays( GL_TRIANGLES, 0, NumVerticesSphere );
-
-
-
+    
+    
+    
     
     
     
@@ -1006,7 +1006,7 @@ void display( void ){
     glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(SPHERE_NORMALS_OFFSET) );
     glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(SPHERE_TEXCOORDS_OFFSET) );
     glDrawArrays( GL_TRIANGLES, 0, NumVerticesSphere );
-
+    
     
     
     
@@ -1032,8 +1032,8 @@ void keyboard( unsigned char key, int x, int y ){
         case 033:    // Escape key
         case 'q': case 'Q':
             exit( EXIT_SUCCESS );
-        break;
-        
+            break;
+            
         case 'y':    //---- theta
             Axis = Yaxis;
             Theta3[Axis] += 4.0;
@@ -1047,7 +1047,7 @@ void keyboard( unsigned char key, int x, int y ){
             Theta3[Axis] = fmod(Theta3[Axis], 360.0);
             glutPostRedisplay();
             break;
-
+            
         case 'z':    //---- phi
             Axis = Zaxis;
             Theta3[Axis] += 4.0;
@@ -1061,12 +1061,12 @@ void keyboard( unsigned char key, int x, int y ){
             Theta3[Axis] = fmod(Theta3[Axis], 360.0);
             glutPostRedisplay();
             break;
-
+            
         case 'r':    //---- increase radius
             r += 0.5;
             glutPostRedisplay();
             break;
-       
+            
         case 'R':    //---- decrease radius
             r -= 0.5;
             glutPostRedisplay();
@@ -1079,7 +1079,7 @@ void keyboard( unsigned char key, int x, int y ){
             Theta3[Zaxis] = 0.0;
             glutPostRedisplay();
             break;
-        
+            
         case 'k':  // kickflip
             doOllie = true;
             doPop = true;
@@ -1103,8 +1103,8 @@ void keyboard( unsigned char key, int x, int y ){
             ollieDone = false;
             glutPostRedisplay();
             break;
-        
-         case 'P': // pedal forward
+            
+        case 'P': // pedal forward
             skateForward = true;
             skateBackwards = false;
             glutPostRedisplay();
@@ -1112,8 +1112,8 @@ void keyboard( unsigned char key, int x, int y ){
             
         case 'p': //sequence of tricks with rail
             skateForward = true;
-	    enterGrind = true;
-	    skateBackwards = true;
+            enterGrind = true;
+            skateBackwards = true;
             glutPostRedisplay();
             break;
             
@@ -1122,7 +1122,7 @@ void keyboard( unsigned char key, int x, int y ){
             skateBackwards = false;
             glutPostRedisplay();
             break;
-        
+            
     }
 }
 
@@ -1148,23 +1148,23 @@ void idle( void ){
     
     
     if (grass1 < -25.0){
-            grass1 = 30.0;
+        grass1 = 34.85;
     } else {
-            grass1 -= 0.1;
+        grass1 -= 0.1;
     }
     
     
     
     if (grass2 < -25.0){
-            grass2 = 30.0;
+        grass2 = 34.85;
     } else {
-            grass2 -= 0.1;
+        grass2 -= 0.1;
     }
     
     
     
     
-   float frontBoundary = 4.0;
+    float frontBoundary = 4.0;
     float rearBoundary = -3.0;
     float step = 0.1/10;
     float oneRadian = M_PI/180;
@@ -1255,79 +1255,79 @@ void idle( void ){
         frontTrAxZ = fmod(frontTrAxZ,frontBoundary);
         if(frontBoundary-frontTrAxZ <= 0.1)
         {
-          skateForward = false;
+            skateForward = false;
         }
     }
     if (doManual)
     {
-      if(!manualDone)
-      {
-        if(manualReached)
+        if(!manualDone)
         {
-          if(grind)
-          {
-            float boardNose = boardZ+zOffset;
-            if(nearPostZ-boardNose <= 0.3)
+            if(manualReached)
             {
-                grind = false;
-            }
-          }
-          else
-          {
-            thetaX += 1;
-            if(thetaX == 0)
-            {
-              thetaX = 0;
-              manualDone = true;
-              doManual = false;
-            }
-          }
-        }
-        else
-        {
-          thetaX -= 1;
-          thetaX = fmod(thetaX, 25);
-          if(thetaX == 0)  // angle reached
-          {// theta reached
-            thetaX = -25;
-            manualReached = true;
-          }
-        }
-      }
-    }
-    if (doOllie)
-    {
-      if (!ollieDone)
-      {
-          if(doPop)
-          {
-            if(!ollieReached)
-            {
-              thetaX -= 1;
-              thetaX = fmod(thetaX, popAngle);
-              if(thetaX == 0)
-              {
-                dist = 0;
-                ollieReached = true;
-                thetaX = -popAngle;
-              }
+                if(grind)
+                {
+                    float boardNose = boardZ+zOffset;
+                    if(nearPostZ-boardNose <= 0.3)
+                    {
+                        grind = false;
+                    }
+                }
+                else
+                {
+                    thetaX += 1;
+                    if(thetaX == 0)
+                    {
+                        thetaX = 0;
+                        manualDone = true;
+                        doManual = false;
+                    }
+                }
             }
             else
             {
-                float oneRadian = M_PI/180;
-                boardY += oneRadian;
-                frontTrAxY += oneRadian;
-                frontWheelsY += oneRadian;
-                rearTrAxY += oneRadian;
-                rearWheelsY += oneRadian;
-                thetaX += 1;
-                if(thetaX == 0)
-                  doPop = false;
+                thetaX -= 1;
+                thetaX = fmod(thetaX, 25);
+                if(thetaX == 0)  // angle reached
+                {// theta reached
+                    thetaX = -25;
+                    manualReached = true;
+                }
             }
-          }
-          else
-          {
-              cout << exitGrind << endl;
+        }
+    }
+    if (doOllie)
+    {
+        if (!ollieDone)
+        {
+            if(doPop)
+            {
+                if(!ollieReached)
+                {
+                    thetaX -= 1;
+                    thetaX = fmod(thetaX, popAngle);
+                    if(thetaX == 0)
+                    {
+                        dist = 0;
+                        ollieReached = true;
+                        thetaX = -popAngle;
+                    }
+                }
+                else
+                {
+                    float oneRadian = M_PI/180;
+                    boardY += oneRadian;
+                    frontTrAxY += oneRadian;
+                    frontWheelsY += oneRadian;
+                    rearTrAxY += oneRadian;
+                    rearWheelsY += oneRadian;
+                    thetaX += 1;
+                    if(thetaX == 0)
+                        doPop = false;
+                }
+            }
+            else
+            {
+                cout << exitGrind << endl;
                 counter++;
                 float oneRadian = M_PI/180;
                 boardY -= oneRadian;
@@ -1337,34 +1337,34 @@ void idle( void ){
                 rearWheelsY -= oneRadian;
                 if(frontWheelsY <= roadY && !exitGrind)
                 {
-                  ollieDone = true;
-                  doOllie = false;
-                  counter = 0;
+                    ollieDone = true;
+                    doOllie = false;
+                    counter = 0;
                 }
                 else if(exitGrind)
                 {
-                  if (frontWheelsY-railY <= -railY+.01)
-                  {
-                      ollieDone = true;
-                      doOllie = false;
-                  }
+                    if (frontWheelsY-railY <= -railY+.01)
+                    {
+                        ollieDone = true;
+                        doOllie = false;
+                    }
                 }
-          }
-
+            }
+            
         }
     }
     if (doKickflip)
     {
-      if (!doPop)
-      {
-          thetaZ += 36;
-          thetaZ = fmod(thetaZ,360);
-          if(thetaZ == 0)
-              doKickflip = false;
-      }
+        if (!doPop)
+        {
+            thetaZ += 36;
+            thetaZ = fmod(thetaZ,360);
+            if(thetaZ == 0)
+                doKickflip = false;
+        }
     }
     glutPostRedisplay();
-}    
+}
 
 
 //----------------------------------------------------------------------------
@@ -1396,7 +1396,6 @@ int main( int argc, char **argv ){
     glutMainLoop();
     return 0;
 }
-
 
 
 
