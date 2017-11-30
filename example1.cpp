@@ -70,7 +70,7 @@ GLuint vNormal;
 GLuint vColor;
 GLuint vTexCoord;
 
-GLuint textures[8];
+GLuint textures[12];
 
 void init(){
     // Load shaders and use the resulting shader program
@@ -89,7 +89,7 @@ void init(){
     
     
     //---- Initialize texture objects
-    glGenTextures( 8, textures );
+    glGenTextures( 12, textures );
     glActiveTexture( GL_TEXTURE0 );
     
     
@@ -188,7 +188,6 @@ void init(){
     
     
     
-    
     unsigned char* pic7 = NULL;
     int w7,h7;
     loadBMP_custom(&pic7, &w7, &h7, "Fabric.bmp");
@@ -200,6 +199,82 @@ void init(){
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+    
+    
+    
+    unsigned char* pic8 = NULL;
+    int w8,h8;
+    loadBMP_custom(&pic8, &w8, &h8, "CeeLo0.bmp");
+    
+    glBindTexture( GL_TEXTURE_2D, textures[8] );
+    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, w8, h8, 0, GL_BGR, GL_UNSIGNED_BYTE, pic8 );
+    glGenerateMipmap(GL_TEXTURE_2D);
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+
+    
+    
+    
+    
+    unsigned char* pic9 = NULL;
+    int w9,h9;
+    loadBMP_custom(&pic9, &w9, &h9, "CeeLo1.bmp");
+    
+    glBindTexture( GL_TEXTURE_2D, textures[9] );
+    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, w9, h9, 0, GL_BGR, GL_UNSIGNED_BYTE, pic9 );
+    glGenerateMipmap(GL_TEXTURE_2D);
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+
+    
+    
+    
+    
+    
+    
+    unsigned char* pic10 = NULL;
+    int w10,h10;
+    loadBMP_custom(&pic10, &w10, &h10, "CeeLo2.bmp");
+    
+    glBindTexture( GL_TEXTURE_2D, textures[10] );
+    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, w10, h10, 0, GL_BGR, GL_UNSIGNED_BYTE, pic10 );
+    glGenerateMipmap(GL_TEXTURE_2D);
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+
+    
+    
+    
+    
+    
+    
+    
+    unsigned char* pic11 = NULL;
+    int w11,h11;
+    loadBMP_custom(&pic11, &w11, &h11, "CeeLo3.bmp");
+    
+    glBindTexture( GL_TEXTURE_2D, textures[11] );
+    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, w11, h11, 0, GL_BGR, GL_UNSIGNED_BYTE, pic11 );
+    glGenerateMipmap(GL_TEXTURE_2D);
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -881,7 +956,7 @@ void display( void ){
     
     
     
-    //----------- Bench 3!!! ------
+    //----------- Bench 3!!! ---------
     //---- BenchBase
     
     glBindTexture( GL_TEXTURE_2D, textures[3] );
@@ -962,7 +1037,7 @@ void display( void ){
     
     
     
-    //----------- Bench 4!!! ------
+    //----------- Bench 4!!! ----------
     //---- BenchBase
     
     glBindTexture( GL_TEXTURE_2D, textures[3] );
@@ -1042,7 +1117,7 @@ void display( void ){
     
     
     
-    //  ----------    GUY   -------
+    //  ----------    GUY 1(SKATER)   -------
     //---- Body
     
     glBindTexture( GL_TEXTURE_2D, textures[7] );
@@ -1141,6 +1216,448 @@ void display( void ){
     glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(SPHERE_NORMALS_OFFSET) );
     glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(SPHERE_TEXCOORDS_OFFSET) );
     glDrawArrays( GL_TRIANGLES, 0, NumVerticesSphere );
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //  ----------    GUY 2   -------
+    //---- Body
+    
+    glBindTexture( GL_TEXTURE_2D, textures[7] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.98, 0.98, 0.98, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( -2.75, 0.425, -13.5 + grass1 ) * Scale(0.1, 0.35, 0.2);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
+    
+    
+    // ---- Leg1
+    
+    glBindTexture( GL_TEXTURE_2D, textures[0] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), false );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.0, 0.0, 0.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( -2.75, 0.125, -13.6 + grass1 ) * Scale(0.05, 0.25, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_NORMALS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCylinder );
+    
+    
+    // ---- Leg2
+    
+    glUniform1i( glGetUniformLocation(program, "texture_on"), false );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.0, 0.0, 0.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( -2.75, 0.125, -13.4 + grass1 ) * Scale(0.05, 0.25, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_NORMALS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCylinder );
+    
+    
+    
+    // ---- Arm1
+    
+    glBindTexture( GL_TEXTURE_2D, textures[7] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.0, 0.0, 0.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( -2.75, 0.6, -13.625 + grass1 ) *  RotateX(-55) * Scale(0.05, 0.30, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_NORMALS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCylinder );
+    
+    
+    
+    // ---- Arm2
+    
+    glBindTexture( GL_TEXTURE_2D, textures[7] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.0, 0.0, 0.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( -2.75, 0.6, -13.375 + grass1 ) * RotateX(55) * Scale(0.05, 0.30, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_NORMALS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCylinder );
+    
+    
+    
+    //---- Head
+    
+    glBindTexture( GL_TEXTURE_2D, textures[8] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial( vec4(0.4, 0.4, 0.4, 1.0), vec4(0.985, 0.985, 0.985, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform_bube3 = Translate( -2.75, 0.725, -13.5 + grass1 ) *  Scale(0.25, 0.25, 0.25) * RotateY(180);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform_bube3 );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(SPHERE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(SPHERE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(SPHERE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesSphere );
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //  ----------    GUY 3   -------
+    //---- Body
+    
+    glBindTexture( GL_TEXTURE_2D, textures[7] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.98, 0.98, 0.98, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( -2.75, 0.425, -12.5 + grass1 ) * Scale(0.1, 0.35, 0.2);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
+    
+    
+    // ---- Leg1
+    
+    glBindTexture( GL_TEXTURE_2D, textures[0] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), false );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.0, 0.0, 0.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( -2.75, 0.125, -12.6 + grass1 ) * Scale(0.05, 0.25, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_NORMALS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCylinder );
+    
+    
+    // ---- Leg2
+    
+    glUniform1i( glGetUniformLocation(program, "texture_on"), false );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.0, 0.0, 0.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( -2.75, 0.125, -12.4 + grass1 ) * Scale(0.05, 0.25, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_NORMALS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCylinder );
+    
+    
+    
+    // ---- Arm1
+    
+    glBindTexture( GL_TEXTURE_2D, textures[7] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.0, 0.0, 0.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( -2.75, 0.6, -12.625 + grass1 ) *  RotateX(-55) * Scale(0.05, 0.30, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_NORMALS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCylinder );
+    
+    
+    
+    // ---- Arm2
+    
+    glBindTexture( GL_TEXTURE_2D, textures[7] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.0, 0.0, 0.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( -2.75, 0.6, -12.375 + grass1 ) * RotateX(55) * Scale(0.05, 0.30, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_NORMALS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCylinder );
+    
+    
+    
+    //---- Head
+    
+    glBindTexture( GL_TEXTURE_2D, textures[9] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial( vec4(0.4, 0.4, 0.4, 1.0), vec4(0.985, 0.985, 0.985, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform_bube3 = Translate( -2.75, 0.725, -12.5 + grass1 ) *  Scale(0.25, 0.25, 0.25) * RotateY(180);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform_bube3 );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(SPHERE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(SPHERE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(SPHERE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesSphere );
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //  ----------    GUY 4   -------
+    //---- Body
+    
+    glBindTexture( GL_TEXTURE_2D, textures[7] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.98, 0.98, 0.98, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( -2.75, 0.425, -11.5 + grass1 ) * Scale(0.1, 0.35, 0.2);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
+    
+    
+    // ---- Leg1
+    
+    glBindTexture( GL_TEXTURE_2D, textures[0] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), false );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.0, 0.0, 0.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( -2.75, 0.125, -11.6 + grass1 ) * Scale(0.05, 0.25, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_NORMALS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCylinder );
+    
+    
+    // ---- Leg2
+    
+    glUniform1i( glGetUniformLocation(program, "texture_on"), false );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.0, 0.0, 0.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( -2.75, 0.125, -11.4 + grass1 ) * Scale(0.05, 0.25, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_NORMALS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCylinder );
+    
+    
+    
+    // ---- Arm1
+    
+    glBindTexture( GL_TEXTURE_2D, textures[7] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.0, 0.0, 0.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( -2.75, 0.6, -11.625 + grass1 ) *  RotateX(-55) * Scale(0.05, 0.30, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_NORMALS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCylinder );
+    
+    
+    
+    // ---- Arm2
+    
+    glBindTexture( GL_TEXTURE_2D, textures[7] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.0, 0.0, 0.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( -2.75, 0.6, -11.375 + grass1 ) * RotateX(55) * Scale(0.05, 0.30, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_NORMALS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCylinder );
+    
+    
+    
+    //---- Head
+    
+    glBindTexture( GL_TEXTURE_2D, textures[10] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial( vec4(0.4, 0.4, 0.4, 1.0), vec4(0.985, 0.985, 0.985, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform_bube3 = Translate( -2.75, 0.725, -11.5 + grass1 ) *  Scale(0.25, 0.25, 0.25) * RotateY(180);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform_bube3 );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(SPHERE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(SPHERE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(SPHERE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesSphere );
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //  ----------    GUY 4   -------
+    //---- Body
+    
+    glBindTexture( GL_TEXTURE_2D, textures[7] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.98, 0.98, 0.98, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( -2.75, 0.425, -10.5 + grass1 ) * Scale(0.1, 0.35, 0.2);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CUBE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCube );
+    
+    
+    // ---- Leg1
+    
+    glBindTexture( GL_TEXTURE_2D, textures[0] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), false );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.0, 0.0, 0.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( -2.75, 0.125, -10.6 + grass1 ) * Scale(0.05, 0.25, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_NORMALS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCylinder );
+    
+    
+    // ---- Leg2
+    
+    glUniform1i( glGetUniformLocation(program, "texture_on"), false );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.0, 0.0, 0.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( -2.75, 0.125, -10.4 + grass1 ) * Scale(0.05, 0.25, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_NORMALS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCylinder );
+    
+    
+    
+    // ---- Arm1
+    
+    glBindTexture( GL_TEXTURE_2D, textures[7] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.0, 0.0, 0.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( -2.75, 0.6, -10.625 + grass1 ) *  RotateX(-55) * Scale(0.05, 0.30, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_NORMALS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCylinder );
+    
+    
+    
+    // ---- Arm2
+    
+    glBindTexture( GL_TEXTURE_2D, textures[7] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.0, 0.0, 0.0, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform = Translate( -2.75, 0.6, -10.375 + grass1 ) * RotateX(55) * Scale(0.05, 0.30, 0.05);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(CYLINDER_NORMALS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesCylinder );
+    
+    
+    
+    //---- Head
+    
+    glBindTexture( GL_TEXTURE_2D, textures[11] );
+    glUniform1i( glGetUniformLocation(program, "texture_on"), true );
+    
+    SetMaterial( vec4(0.4, 0.4, 0.4, 1.0), vec4(0.985, 0.985, 0.985, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
+    glUniform1i( glGetUniformLocation(program, "light_out"), false );
+    
+    transform_bube3 = Translate( -2.75, 0.725, -10.5 + grass1 ) *  Scale(0.25, 0.25, 0.25) * RotateY(180);
+    glUniformMatrix4fv( glGetUniformLocation( program, "model" ), 1, GL_TRUE, transform_bube3 );
+    
+    glVertexAttribPointer( vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(SPHERE_OFFSET) );
+    glVertexAttribPointer( vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(SPHERE_NORMALS_OFFSET) );
+    glVertexAttribPointer( vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(SPHERE_TEXCOORDS_OFFSET) );
+    glDrawArrays( GL_TRIANGLES, 0, NumVerticesSphere );
+
     
     
     
@@ -1272,7 +1789,7 @@ void keyboard( unsigned char key, int x, int y ){
             skateBackwards = false;
             glutPostRedisplay();
             break;
-        
+            
         case '1':  // ollie in, kickflip out
             entryTrick = ollie;
             exitTrick = kickflip;
@@ -1287,14 +1804,14 @@ void keyboard( unsigned char key, int x, int y ){
             enterGrind = true;
             glutPostRedisplay();
             break;
-        
+            
         case '3': // shoveIt in, kickflip out
             entryTrick = shoveIt;
             exitTrick = kickflip;
             enterGrind = true;
             glutPostRedisplay();
             break;
-        
+            
         case '4':
             xOffset += 0.1;
             doOllie = true;
@@ -1359,7 +1876,7 @@ void idle( void ){
     float step = 0.1/10;
     float oneRadian = M_PI/180;
     
-
+    
     float boardToRailDifference = (farPostZ+grass1) - (boardZ+zOffset);
     if (boardToRailDifference > 0 && boardToRailDifference <= 4.0  && enterGrind)
     {
@@ -1527,27 +2044,27 @@ void idle( void ){
     {
         if(ollieReached)
         {
-          if (!doNinety)
-          {
-            thetaY += 9;
-            thetaY = fmod(thetaY,360);
-            if(thetaY == 0)
+            if (!doNinety)
             {
-                doShoveIt = false;
-                shoveItReached = true;
-            }
+                thetaY += 9;
+                thetaY = fmod(thetaY,360);
+                if(thetaY == 0)
+                {
+                    doShoveIt = false;
+                    shoveItReached = true;
+                }
                 
-          }
-          else
-          {
-
-              thetaY += 9;
-              if(fmod(thetaY,90) == 0)
-              {
-                  doShoveIt = false;
-                  shoveItReached = true;
-              }
-          }
+            }
+            else
+            {
+                
+                thetaY += 9;
+                if(fmod(thetaY,90) == 0)
+                {
+                    doShoveIt = false;
+                    shoveItReached = true;
+                }
+            }
         }
     }
     if (doManual)
@@ -1688,7 +2205,6 @@ int main( int argc, char **argv ){
     glutMainLoop();
     return 0;
 }
-
 
 
 
