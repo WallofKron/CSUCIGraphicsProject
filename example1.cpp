@@ -70,7 +70,7 @@ GLuint vNormal;
 GLuint vColor;
 GLuint vTexCoord;
 
-GLuint textures[12];
+GLuint textures[16];
 
 void init(){
     // Load shaders and use the resulting shader program
@@ -89,7 +89,7 @@ void init(){
     
     
     //---- Initialize texture objects
-    glGenTextures( 12, textures );
+    glGenTextures( 16, textures );
     glActiveTexture( GL_TEXTURE0 );
     
     
@@ -266,8 +266,76 @@ void init(){
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
     glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+    
 
     
+    
+    
+    unsigned char* pic12 = NULL;
+    int w12,h12;
+    loadBMP_custom(&pic12, &w12, &h12, "sw0.bmp");
+    
+    glBindTexture( GL_TEXTURE_2D, textures[12] );
+    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, w12, h12, 0, GL_BGR, GL_UNSIGNED_BYTE, pic12 );
+    glGenerateMipmap(GL_TEXTURE_2D);
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+
+    
+    
+    
+    
+    
+    unsigned char* pic13 = NULL;
+    int w13,h13;
+    loadBMP_custom(&pic13, &w13, &h13, "sw1.bmp");
+    
+    glBindTexture( GL_TEXTURE_2D, textures[13] );
+    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, w13, h13, 0, GL_BGR, GL_UNSIGNED_BYTE, pic13 );
+    glGenerateMipmap(GL_TEXTURE_2D);
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+
+    
+    
+    
+    
+    
+    
+    unsigned char* pic14 = NULL;
+    int w14,h14;
+    loadBMP_custom(&pic14, &w14, &h14, "sw2.bmp");
+    
+    glBindTexture( GL_TEXTURE_2D, textures[14] );
+    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, w14, h14, 0, GL_BGR, GL_UNSIGNED_BYTE, pic14);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+
+    
+    
+    
+    
+    
+    
+    unsigned char* pic15 = NULL;
+    int w15,h15;
+    loadBMP_custom(&pic15, &w15, &h15, "sw3.bmp");
+    
+    glBindTexture( GL_TEXTURE_2D, textures[15] );
+    glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, w15, h15, 0, GL_BGR, GL_UNSIGNED_BYTE, pic15 );
+    glGenerateMipmap(GL_TEXTURE_2D);
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+    glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+
     
     
     
@@ -1230,7 +1298,7 @@ void display( void ){
     //  ----------    GUY 2   -------
     //---- Body
     
-    glBindTexture( GL_TEXTURE_2D, textures[7] );
+    glBindTexture( GL_TEXTURE_2D, textures[12] );
     glUniform1i( glGetUniformLocation(program, "texture_on"), true );
     
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.98, 0.98, 0.98, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
@@ -1340,7 +1408,7 @@ void display( void ){
     //  ----------    GUY 3   -------
     //---- Body
     
-    glBindTexture( GL_TEXTURE_2D, textures[7] );
+    glBindTexture( GL_TEXTURE_2D, textures[13] );
     glUniform1i( glGetUniformLocation(program, "texture_on"), true );
     
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.98, 0.98, 0.98, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
@@ -1452,7 +1520,7 @@ void display( void ){
     //  ----------    GUY 4   -------
     //---- Body
     
-    glBindTexture( GL_TEXTURE_2D, textures[7] );
+    glBindTexture( GL_TEXTURE_2D, textures[14] );
     glUniform1i( glGetUniformLocation(program, "texture_on"), true );
     
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.98, 0.98, 0.98, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
@@ -1558,10 +1626,10 @@ void display( void ){
     
     
     
-    //  ----------    GUY 4   -------
+    //  ----------    GUY 5   -------
     //---- Body
     
-    glBindTexture( GL_TEXTURE_2D, textures[7] );
+    glBindTexture( GL_TEXTURE_2D, textures[15] );
     glUniform1i( glGetUniformLocation(program, "texture_on"), true );
     
     SetMaterial(vec4(0.4, 0.4, 0.4, 1.0), vec4(0.98, 0.98, 0.98, 1.0), vec4(0.2, 0.2, 0.2, 1.0), 1.0);
@@ -1812,23 +1880,6 @@ void keyboard( unsigned char key, int x, int y ){
             glutPostRedisplay();
             break;
             
-        case '4':
-            xOffset += 0.1;
-            doOllie = true;
-            doPop = true;
-            ollieReached = false;
-            ollieDone = false;
-            doShoveIt = true;
-            shoveItReached = false;
-            doNinety = true;
-            glutPostRedisplay();
-            break;
-            
-        case 's': // stop
-            skateForward = false;
-            skateBackwards = false;
-            glutPostRedisplay();
-            break;
             
     }
 }
